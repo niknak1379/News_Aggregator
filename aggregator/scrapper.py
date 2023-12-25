@@ -6,16 +6,24 @@ url = "https://theintercept.com/"
 
 
 def scrapper():
+    """
+    Scrapes TheIntercept and Vox websites by calling the respective functions
+    """
     intercept_scrapper()
     vox_scrapper()
 
 
 def intercept_scrapper():
+    """
+    scrapes TheIntercept for articles and their respective authors
+
+    uses beautifulsoup4 to scrape the website and then saves the title
+    and authors of each article in the database of the model of the app
+    """
     result = requests.get("https://theintercept.com/");
     if result.status_code == 200:
         doc = BeautifulSoup(result.text, "html.parser")
         articles = doc.find_all("article")
-        artCount = 0
         for article in articles:
             title = article.find('h3').text.strip()
 
@@ -27,16 +35,20 @@ def intercept_scrapper():
                 continue
             else:
                 author = authorObject.text.strip()
-                artCount += 1
                 Art = Article(title=title, author=author, source='Intercept')
                 Art.save()
 
 
 def vox_scrapper():
+    """
+        scrapes Vox for articles and their respective authors
+
+        uses beautifulsoup4 to scrape the website and then saves the title
+        and authors of each article in the database of the model of the app
+        """
     result = requests.get("https://www.vox.com/")
     doc = BeautifulSoup(result.text, "html.parser")
     Titles = doc.find_all("h2")
-    artCount = 0
     # Authors = doc.find_all("span", class_="c-byline__author-name")
     for title in Titles:
         parent = title.parent
@@ -45,6 +57,5 @@ def vox_scrapper():
             continue
         else:
             author = authorObject.text.strip()
-            artCount += 1
             Art = Article(title=title.text.strip(), author=author, source="Vox")
             Art.save()
