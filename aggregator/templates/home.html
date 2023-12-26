@@ -4,7 +4,6 @@
 
 {% block content %}
 
-    <p>Some data to be filled with beautifulsoup later</p>
     <div class="row">
         <div class="col text-left">
             <div class="row text-left">
@@ -17,13 +16,24 @@
                     </select>
                     <button type="submit" class="btn btn-warning">Sort</button>
                 </form>
-                <a href="">
+                <a href="{% url 'homepage' %}">
                     <button class="btn btn-outline-primary">Update</button>
                 </a>
             </div>
         </div>
         <div class="col text-right">
             <div>total number of articles from intercept: {{count}}</div>
+            <div class = "row text-right">
+                <form action="/filter/" method="POST">
+                    {% csrf_token %}
+                    <select id="sort" name="sort">
+                        <option value="author">Author</option>
+                        <option value="title">Title</option>
+                    </select>
+                    <input type="text" name="filterField">
+                    <button type="submit" class="btn btn-outline-primary">Filter</button>
+                </form>
+            </div>
         </div>
     </div>
     {% if articles %}
