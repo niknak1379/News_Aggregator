@@ -3,9 +3,6 @@ from .scrapper import scrapper, vox_scrapper
 from .models import Article
 
 
-# Create your views here.
-
-
 def homepage(request):
     """
     loads the homepage of the app and renders it
@@ -19,6 +16,8 @@ def homepage(request):
         homepage is called
     returns: the rendered homepage
     """
+
+    # resets the database and updates it by running the scrapper
     Article.objects.all().delete()
     scrapper()
     articles = Article.objects.all()
@@ -42,9 +41,12 @@ def sort(request):
         parameter request: the POST network request issued by the user
         returns: the rendered sorted articles
         """
+
+    # gets the articles from the data base
     articles = Article.objects.all()
     count = Article.objects.count()
 
+    # sorts the list
     if request.method == 'POST':
         sortID = request.POST.get('sort', None)
 
@@ -73,8 +75,10 @@ def custom_filter(request):
        returns: the rendered filtered articles
     """
 
+    # gets the articles from the database
     articles = list(Article.objects.all())
 
+    # filters the articles for the keywords
     if request.method == 'POST':
         sortID = request.POST.get('sort', None)
         filterStr = request.POST.get('filterField', None)
@@ -86,11 +90,13 @@ def custom_filter(request):
             elif sortID == 'title':
                 articles = list(filter(lambda x: filterStr.lower() in x.title.lower(), articles))
 
+    # passes in the articles to the template
     context = {
         'articles': articles,
         'count': len(articles)
     }
 
+    # updates the database to the filtered version
     Article.objects.all().delete()
     for article in articles:
         Art = Article(title=article.title, author=article.author, source=article.source)
