@@ -28,8 +28,31 @@
         </ul>
       </div>
     </nav>
-    <div class="container">{% block content %} {% endblock %}</div>
+    <main class="container">{% block content %} {% endblock %}</main>
+    <footer class="flex">
+        <section id="footer" class="flex">
+            <div class="flex" id="socialIcons">
+                <a href="https://www.facebook.com/PASA.UCSANDIEGO/" target="_blank">
+                    <img src="/Assets/icons8-facebook.svg" alt="Facebook logo" class="social">
+                </a>
+                <a href="https://www.instagram.com/pasa.ucsd/" target="_blank">
+                    <img src="/Assets/icons8-instagram.svg" alt="Instagram logo" class="social">
+                </a>
+                <a href="https://www.tiktok.com/@pasaucsd" target="_blank">
+                    <img src="/Assets/icons8-tiktok.svg" alt="TikTok logo" class="social">
+                </a>
+            </div>
+        </section>
+        <section id="footerInfo" class="flex">
+            <p>Persian American Student Association @UCSD</p>
+            <p>pasaucsd@ucsd.edu</p>
+        </section>
+        <p id="copyright">
+            Nikan Ostovan @2023
+        </p>
+    </footer>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" ></script>
   </body>
+
 </html>

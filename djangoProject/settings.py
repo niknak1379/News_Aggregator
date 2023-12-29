@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure--vy8e_!91r9nz7s214ys-4(1+ll#fhwmeo0pghgs))rfnp^f5b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+
+ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['.vercel.app']
 
 
 # Application definition
@@ -74,7 +76,7 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -83,6 +85,19 @@ DATABASES = {
         'PASSWORD': '53eCGe6G1CF11*11DebaCgE6gg*1-*2a',
         'HOST': 'viaduct.proxy.rlwy.net',
         'PORT': '56245',
+    }
+}
+"""
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',  # Database engine
+        'NAME': BASE_DIR / 'db.sqlite3',        # Database name and location
+        'USER': '',                              # Database username
+        'PASSWORD': '',                          # Database password
+        'HOST': '',                              # Database host (empty for localhost)
+        'PORT': '',                              # Database port (empty for default)
     }
 }
 
