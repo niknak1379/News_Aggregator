@@ -1,6 +1,36 @@
 from django.shortcuts import render, HttpResponse
-from .scrapper import scrapper, vox_scrapper
+from rest_framework import status
+from rest_framework.renderers import (
+    HTMLFormRenderer,
+    JSONRenderer,
+    BrowsableAPIRenderer,
+)
+from .scrapper import scrapper
 from .models import Article
+from .serializer import *
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+
+class ArticleList(APIView):
+    serializer_class = ArticleSerializer
+    renderer_classes = (BrowsableAPIRenderer, JSONRenderer, HTMLFormRenderer)
+
+    def get(self, request):
+        output = [{
+            "source": output.source,
+            "author": output.author,
+            "title": output.title
+        }
+            for output in Article.objects.all()]
+        return Response(output)
+
+    def post(self, request):
+        serializer = ArticleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def homepage(request):
