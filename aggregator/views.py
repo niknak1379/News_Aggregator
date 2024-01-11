@@ -10,6 +10,16 @@ from .models import Article
 from .serializer import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.http import JsonResponse
+from django.middleware.csrf import get_token
+
+
+def csrf(request):
+    return JsonResponse({'csrfToken': get_token(request)})
+
+
+def ping(request):
+    return JsonResponse({'result': 'OK'})
 
 
 class ArticleList(APIView):
@@ -61,6 +71,10 @@ def homepage(request):
 
 
 def sort(request):
+    return JsonResponse({'result': 'def not ok'})
+
+
+def Customsort(request):
     """
         displays the sorted data based off user input
 

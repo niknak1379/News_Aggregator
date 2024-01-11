@@ -20,8 +20,8 @@ from aggregator.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', ArticleList.as_view(), name='article_list')
-    # path('', include("aggregator.urls"))
+    # path('', ArticleList.as_view(), name='article_list')
+    path('', include("aggregator.urls"))
 ]
 
 
